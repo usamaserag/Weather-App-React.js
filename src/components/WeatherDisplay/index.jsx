@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { ButtonStyle } from "../ChooseCity";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const WeatherDataWrapperStyle = styled.div`
   width: 100%;
@@ -68,7 +69,6 @@ const WeatherRightDataStyle = styled.p`
   align-items: center;
   justify-content: space-between;
 `;
-
 
 const WeatherDisplay = ({ weatherData, setWeatherData }) => {
   const getDayName = (timeStamp) => {
@@ -142,13 +142,13 @@ const WeatherDisplay = ({ weatherData, setWeatherData }) => {
               </DayLargeStyle>
               <p>{getDayName(weatherData.sys.sunset)}</p>
               <p>
-                {weatherData.name}, {weatherData.sys.country}
+                <FaMapMarkerAlt /> {weatherData.name}, {weatherData.sys.country}
               </p>
             </div>
             <div>
-              <div style={{height: "100px", width: "100px"}}>
+              <div style={{ height: "100px", width: "100px" }}>
                 <img
-                  style={{height: "100%", width: "100%", filter: "invert(1)"}}
+                  style={{ height: "100%", width: "100%", filter: "invert(1)" }}
                   alt=""
                   src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
                 />
@@ -156,7 +156,9 @@ const WeatherDisplay = ({ weatherData, setWeatherData }) => {
               <DayLargeStyle>
                 {getTemperature(weatherData.main.temp)}
               </DayLargeStyle>
-              <p style={{textTransform: "capitalize", fontSize: "20px"}}>{weatherData.weather[0].description}</p>
+              <p style={{ textTransform: "capitalize", fontSize: "20px" }}>
+                {weatherData.weather[0].description}
+              </p>
             </div>
           </LeftSideStyle>
         </WeatherImgInfoStyle>
@@ -172,7 +174,9 @@ const WeatherDisplay = ({ weatherData, setWeatherData }) => {
             );
           })}
         </div>
-        <ButtonStyle onClick={() => setWeatherData(null)}>Change Location</ButtonStyle>
+        <ButtonStyle onClick={() => setWeatherData(null)}>
+          <FaMapMarkerAlt /> Change Location
+        </ButtonStyle>
       </RightSideStyle>
     </WeatherDataWrapperStyle>
   );

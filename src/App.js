@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ChooseCity from "./components/ChooseCity";
 import WeatherDisplay from "./components/WeatherDisplay";
+import Loading from "./components/LoadingPage";
 import "./App.css";
 
 const Container = styled.div`
@@ -13,23 +14,32 @@ const Container = styled.div`
   border-radius: 25px;
   background-color: #1e232c;
   padding: 20px;
-  height: 500px;
+  height: 400px;
 `;
 
 function App() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   return (
     <Container>
-      {!weatherData ? (
+      {weatherData === null && loading === false ? (
         <ChooseCity
           city={city}
           setCity={setCity}
           setWeatherData={setWeatherData}
+          setLoading={setLoading}
+        />
+      ) : weatherData === null && loading === true ? (
+        <Loading />
+      ) : weatherData !== null && loading === false ? (
+        <WeatherDisplay
+          weatherData={weatherData}
+          setWeatherData={setWeatherData}
         />
       ) : (
-        <WeatherDisplay weatherData={weatherData} setWeatherData={setWeatherData} />
+        ""
       )}
     </Container>
   );

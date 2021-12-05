@@ -27,11 +27,11 @@ export const ButtonStyle = styled.button`
   }
 `;
 
-const ChooseCity = ({city, setCity, setWeatherData}) => {
+const ChooseCity = ({city, setCity, setWeatherData, setLoading}) => {
 
   return (
     <>
-      <form style={{margin: "auto"}} onSubmit={(e) => fetchWeather(e, city, setCity, setWeatherData)}>
+      <form style={{margin: "auto"}} onSubmit={(e) => fetchWeather(e, city, setCity, setWeatherData, setLoading)}>
         <SearchInputStyle
           type="search"
           placeholder="Search for location..."
