@@ -10,7 +10,7 @@ const SearchInputStyle = styled.input`
   padding: 10px;
 `;
 
-const ButtonStyle = styled.input`
+export const ButtonStyle = styled.button`
   outline: none;
   width: 100%;
   border: none;
@@ -39,7 +39,7 @@ const ChooseCity = ({city, setCity, setWeatherData}) => {
           onChange={(e) => setCity(e.target.value)}
           required
         />
-        <ButtonStyle type="submit" value="SEARCH" />
+        <ButtonStyle>SEARCH</ButtonStyle>
       </form>
     </>
   );

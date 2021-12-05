@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import moment from "moment";
+import { ButtonStyle } from "../ChooseCity";
 
 const WeatherDataWrapperStyle = styled.div`
   width: 100%;
@@ -69,7 +70,7 @@ const WeatherRightDataStyle = styled.p`
 `;
 
 
-const WeatherDisplay = ({ weatherData }) => {
+const WeatherDisplay = ({ weatherData, setWeatherData }) => {
   const getDayName = (timeStamp) => {
     return moment.unix(timeStamp).format("D MMMM YYYY");
   };
@@ -171,6 +172,7 @@ const WeatherDisplay = ({ weatherData }) => {
             );
           })}
         </div>
+        <ButtonStyle onClick={() => setWeatherData(null)}>Change Location</ButtonStyle>
       </RightSideStyle>
     </WeatherDataWrapperStyle>
   );

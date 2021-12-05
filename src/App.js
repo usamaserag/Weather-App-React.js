@@ -29,7 +29,7 @@ function App() {
           setWeatherData={setWeatherData}
         />
       ) : (
-        <WeatherDisplay weatherData={weatherData} />
+        <WeatherDisplay weatherData={weatherData} setWeatherData={setWeatherData} />
       )}
     </Container>
   );
