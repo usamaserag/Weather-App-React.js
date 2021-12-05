@@ -11,7 +11,7 @@ const WeatherImgBoxStyle = styled.div`
   position: relative;
   height: 100%;
   border-radius: 25px;
-  background-image: url("./photo1");
+  background-image: url("https://images.unsplash.com/photo-1559963110-71b394e7494d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80");
   width: 300px;
   transition: transform 300ms ease;
   transform: scale(1);
