@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import ChooseCity from "./components/ChooseCity";
+// import ChooseCity from "./components/ChooseCity";
+import WeatherDisplay from "./components/WeatherDisplay";
 import './App.css';
 
 const Container = styled.div`
@@ -11,7 +12,7 @@ const Container = styled.div`
   width: 800px;
   border-radius: 25px;
   background-color: #1e232c;
-  padding: 10px 20px;
+  padding: 20px;
   height: 500px;
 `;
 
@@ -19,7 +20,8 @@ function App() {
   const [city, setCity] = useState("")
   return (
     <Container>
-      <ChooseCity city={city} setCity={setCity} />
+      {/* <ChooseCity city={city} setCity={setCity} /> */}
+      <WeatherDisplay />
     </Container>
   );
 }
