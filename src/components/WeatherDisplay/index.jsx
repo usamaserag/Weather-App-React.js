@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import moment from "moment";
 
 const WeatherDataWrapperStyle = styled.div`
   width: 100%;
@@ -38,9 +39,15 @@ const WeatherImgInfoStyle = styled.div`
 `;
 
 const LeftSideStyle = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+const DayLargeStyle = styled.p`
+  font-size: 40px;
+  font-weight: bold;
 `;
 
 const RightSideStyle = styled.div`
@@ -61,15 +68,66 @@ const WeatherRightDataStyle = styled.p`
   justify-content: space-between;
 `;
 
-const WeatherDisplay = () => {
-  const weatherData = [
-    { name: "humidity" },
-    { name: "air pressure" },
-    { name: "wind" },
-    { name: "max temp" },
-    { name: "min temp" },
-    { name: "sunrise" },
-    { name: "sunset" },
+
+const WeatherDisplay = ({ weatherData }) => {
+  const getDayName = (timeStamp) => {
+    return moment.unix(timeStamp).format("D MMMM YYYY");
+  };
+
+  const getDayDate = (timeStamp) => {
+    return moment.unix(timeStamp).format("dddd");
+  };
+
+  const getTemperature = (fahrenheit) => {
+    return `${Math.floor(fahrenheit - 273)}°C`;
+  };
+
+  const getTempMaxDegree = (fahrenheit) => {
+    return Math.floor(fahrenheit - 273);
+  };
+
+  const getTempMinDegree = (fahrenheit) => {
+    return Math.floor(fahrenheit - 273);
+  };
+
+  const getSunrise = (timeStamp) => {
+    return `${moment.unix(timeStamp).format("H:MM a")}`;
+  };
+
+  const getSunset = (timeStamp) => {
+    return `${moment.unix(timeStamp).format("h:mm a")}`;
+  };
+
+  const getWindSpeed = (speed) => {
+    return `${Math.floor(speed * 3.6)} Km/h`;
+  };
+
+  const weatherDataDisplay = [
+    { name: "humidity", value: weatherData.main.humidity },
+    {
+      name: "air pressure",
+      value: weatherData.main.pressure,
+    },
+    {
+      name: "wind",
+      value: getWindSpeed(weatherData.wind.speed),
+    },
+    {
+      name: "max temp",
+      value: getTempMaxDegree(weatherData.main.temp_max),
+    },
+    {
+      name: "min temp",
+      value: getTempMinDegree(weatherData.main.temp_min),
+    },
+    {
+      name: "sunrise",
+      value: getSunrise(weatherData.sys.sunrise),
+    },
+    {
+      name: "sunset",
+      value: getSunset(weatherData.sys.sunset),
+    },
   ];
 
   return (
@@ -78,22 +136,39 @@ const WeatherDisplay = () => {
         <WeatherImgInfoStyle>
           <LeftSideStyle>
             <div>
-              <p>xx</p>
-              <p>xx</p>
-              <p>xx</p>
+              <DayLargeStyle>
+                {getDayDate(weatherData.sys.sunset)}
+              </DayLargeStyle>
+              <p>{getDayName(weatherData.sys.sunset)}</p>
+              <p>
+                {weatherData.name}, {weatherData.sys.country}
+              </p>
             </div>
             <div>
-              <div>icon Weather</div>
-              <p>xx°C</p>
-              <p>xx</p>
+              <div style={{height: "100px", width: "100px"}}>
+                <img
+                  style={{height: "100%", width: "100%", filter: "invert(1)"}}
+                  alt=""
+                  src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
+                />
+              </div>
+              <DayLargeStyle>
+                {getTemperature(weatherData.main.temp)}
+              </DayLargeStyle>
+              <p style={{textTransform: "capitalize", fontSize: "20px"}}>{weatherData.weather[0].description}</p>
             </div>
           </LeftSideStyle>
         </WeatherImgInfoStyle>
       </WeatherImgBoxStyle>
       <RightSideStyle>
         <div>
-          {weatherData.map((item, index) => {
-            return <WeatherRightDataStyle key={index}>{item.name}</WeatherRightDataStyle>;
+          {weatherDataDisplay.map((item, index) => {
+            return (
+              <WeatherRightDataStyle key={index}>
+                {item.name}
+                <span>{item.value}</span>
+              </WeatherRightDataStyle>
+            );
           })}
         </div>
       </RightSideStyle>

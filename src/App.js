@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ChooseCity from "./components/ChooseCity";
-// import WeatherDisplay from "./components/WeatherDisplay";
-import './App.css';
-
+import WeatherDisplay from "./components/WeatherDisplay";
+import "./App.css";
 
 const Container = styled.div`
   display: flex;
@@ -23,8 +22,15 @@ function App() {
 
   return (
     <Container>
-      <ChooseCity city={city} setCity={setCity} setWeatherData={setWeatherData} />
-      {/* <WeatherDisplay /> */}
+      {!weatherData ? (
+        <ChooseCity
+          city={city}
+          setCity={setCity}
+          setWeatherData={setWeatherData}
+        />
+      ) : (
+        <WeatherDisplay weatherData={weatherData} />
+      )}
     </Container>
   );
 }
