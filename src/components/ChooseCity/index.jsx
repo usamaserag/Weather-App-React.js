@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { fetchWeather } from "../../utils/apiCalls"
 
 const SearchInputStyle = styled.input`
   width: 100%;
@@ -26,17 +27,11 @@ const ButtonStyle = styled.input`
   }
 `;
 
-const ChooseCity = ({city, setCity}) => {
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setCity("")
-        console.log(city)
-    }
+const ChooseCity = ({city, setCity, setWeatherData}) => {
 
   return (
     <>
-      <form style={{margin: "auto"}} onSubmit={handleSubmit}>
+      <form style={{margin: "auto"}} onSubmit={(e) => fetchWeather(e, city, setCity, setWeatherData)}>
         <SearchInputStyle
           type="search"
           placeholder="Search for location..."
