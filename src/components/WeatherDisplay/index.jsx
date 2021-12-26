@@ -148,9 +148,9 @@ const WeatherDisplay = ({ weatherData, setWeatherData }) => {
             <div>
               <div style={{ height: "100px", width: "100px" }}>
                 <img
-                  style={{ height: "100%", width: "100%", filter: "invert(1)" }}
+                  style={{ height: "100%", width: "100%" }}
                   alt=""
-                  src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
+                  src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
                 />
               </div>
               <DayLargeStyle>
