@@ -1,14 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { fetchWeather } from "../../utils/apiCalls"
-
-const SearchInputStyle = styled.input`
-  width: 100%;
-  outline: none;
-  border-radius: 25px;
-  border: none;
-  padding: 10px;
-`;
+import { fetchWeather } from "../../utils/apiCalls";
+import {
+  GeoapifyGeocoderAutocomplete,
+  GeoapifyContext,
+} from "@geoapify/react-geocoder-autocomplete";
+import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
 
 export const ButtonStyle = styled.button`
   outline: none;
@@ -27,21 +24,43 @@ export const ButtonStyle = styled.button`
   }
 `;
 
-const ChooseCity = ({city, setCity, setWeatherData, setLoading}) => {
+const ChooseCity = ({
+  setWeatherData,
+  selectedLocation,
+  setSelectedLocation,
+  setLoading,
+}) => {
+  const onPlaceSelect = (value) => {
+    const { city, country_code } = value.properties;
+    setSelectedLocation({
+      city,
+      country_code,
+    });
+    console.log("properties", value.properties);
+  };
+
+  const onSuggestionChange = (value) => {
+    console.log(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (!selectedLocation.city) return;
+    fetchWeather(selectedLocation, setWeatherData, setLoading);
+  };
 
   return (
-    <>
-      <form style={{margin: "auto"}} onSubmit={(e) => fetchWeather(e, city, setCity, setWeatherData, setLoading)}>
-        <SearchInputStyle
-          type="search"
+    <form style={{ margin: "auto" }} onSubmit={handleSubmit}>
+      <GeoapifyContext apiKey={process.env.REACT_APP_PLACES_KEY}>
+        <GeoapifyGeocoderAutocomplete
+          placeSelect={onPlaceSelect}
+          suggestionsChange={onSuggestionChange}
           placeholder="Search for location..."
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          required
         />
-        <ButtonStyle>SEARCH</ButtonStyle>
-      </form>
-    </>
+      </GeoapifyContext>
+      <ButtonStyle>SEARCH</ButtonStyle>
+    </form>
   );
 };
 

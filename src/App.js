@@ -3,14 +3,14 @@ import styled from "styled-components";
 import ChooseCity from "./components/ChooseCity";
 import WeatherDisplay from "./components/WeatherDisplay";
 import Loading from "./components/LoadingPage";
-import "./App.css";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.2);
-  width: 800px;
+  max-width: 800px;
+  margin: 0 auto;
   border-radius: 25px;
   background-color: #1e232c;
   padding: 20px;
@@ -18,16 +18,16 @@ const Container = styled.div`
 `;
 
 function App() {
-  const [city, setCity] = useState("");
-  const [weatherData, setWeatherData] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState({});
   const [loading, setLoading] = useState(false);
+  const [weatherData, setWeatherData] = useState(null);
 
   return (
     <Container>
       {weatherData === null && loading === false ? (
         <ChooseCity
-          city={city}
-          setCity={setCity}
+          selectedLocation={selectedLocation}
+          setSelectedLocation={setSelectedLocation}
           setWeatherData={setWeatherData}
           setLoading={setLoading}
         />

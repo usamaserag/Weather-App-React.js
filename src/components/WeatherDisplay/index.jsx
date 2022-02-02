@@ -15,11 +15,14 @@ const WeatherImgBoxStyle = styled.div`
   height: 100%;
   border-radius: 25px;
   background-image: url("https://images.unsplash.com/photo-1559963110-71b394e7494d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80");
-  width: 300px;
+  width: 50%;
   transition: transform 300ms ease;
   transform: scale(1);
   &:hover {
     transform: scale(1.02);
+  }
+  @media only screen and (max-width: 600px) {
+    width: 100%;
   }
 `;
 
@@ -50,6 +53,9 @@ const LeftSideStyle = styled.div`
 const DayLargeStyle = styled.p`
   font-size: 40px;
   font-weight: bold;
+  @media only screen and (max-width: 800px) {
+    font-size: 28px;
+  }
 `;
 
 const RightSideStyle = styled.div`
@@ -57,7 +63,10 @@ const RightSideStyle = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 30px 20px;
-  width: calc(100% - 300px);
+  width: 50%;
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const WeatherRightDataStyle = styled.p`
